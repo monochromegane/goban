@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"github.com/monochromegane/goban"
 )
 
 func main() {
-	fmt.Printf("Hello, goban\n")
+	columns := []string{"columnA", "columnBBBB"}
+	goban.Render(columns)
 }
