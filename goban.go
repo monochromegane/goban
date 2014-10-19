@@ -3,7 +3,13 @@ package goban
 import (
 	"fmt"
 	"strings"
+	"unicode/utf8"
 )
+
+func Render(columns []string, values [][]string) {
+	goban := newGoban(columns, values)
+	goban.render()
+}
 
 type goban struct {
 	columns []string
@@ -25,13 +31,25 @@ func newGoban(columns []string, rows [][]string) goban {
 }
 
 func maxColumnLength(i int, column string, rows [][]string) int {
-	max := len(column)
+	max := displayLength(column)
 	for _, row := range rows {
-		if l := len(row[i]); l > max {
+		if l := displayLength(row[i]); l > max {
 			max = l
 		}
 	}
 	return max
+}
+
+func displayLength(str string) int {
+	length := 0
+	for _, s := range str {
+		if l := utf8.RuneLen(s); l > 1 {
+			length += 2
+		} else {
+			length++
+		}
+	}
+	return length
 }
 
 func (g goban) render() {
@@ -53,14 +71,11 @@ func (g goban) renderLine() {
 
 func (g goban) renderColumn(columns []string) {
 	for i, c := range columns {
-		fmt.Printf(fmt.Sprintf("| %%-%ds ", g.maxes[i]), c)
+		fmt.Printf(
+			"| %s%s ",
+			c,
+			strings.Repeat(" ", g.maxes[i]-displayLength(c)),
+		)
 	}
 	fmt.Printf("|\n")
-}
-
-func Render(columns []string, values [][]string) {
-
-	goban := newGoban(columns, values)
-	goban.render()
-
 }
