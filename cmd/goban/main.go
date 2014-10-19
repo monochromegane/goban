@@ -6,5 +6,9 @@ import (
 
 func main() {
 	columns := []string{"columnA", "columnBBBB"}
-	goban.Render(columns)
+	values := [][]string{
+		[]string{"valueA1-laskdfas", "valueB1"},
+		[]string{"valueA2", "valueB2"},
+	}
+	goban.Render(columns, values)
 }
