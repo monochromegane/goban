@@ -30,28 +30,6 @@ func newGoban(columns []string, rows [][]string) goban {
 	return goban
 }
 
-func maxColumnLength(i int, column string, rows [][]string) int {
-	max := displayLength(column)
-	for _, row := range rows {
-		if l := displayLength(row[i]); l > max {
-			max = l
-		}
-	}
-	return max
-}
-
-func displayLength(str string) int {
-	length := 0
-	for _, s := range str {
-		if l := utf8.RuneLen(s); l > 1 {
-			length += 2
-		} else {
-			length++
-		}
-	}
-	return length
-}
-
 func (g goban) render() {
 	g.renderLine()
 	g.renderColumn(g.columns)
@@ -78,4 +56,26 @@ func (g goban) renderColumn(columns []string) {
 		)
 	}
 	fmt.Printf("|\n")
+}
+
+func maxColumnLength(i int, column string, rows [][]string) int {
+	max := displayLength(column)
+	for _, row := range rows {
+		if l := displayLength(row[i]); l > max {
+			max = l
+		}
+	}
+	return max
+}
+
+func displayLength(str string) int {
+	length := 0
+	for _, s := range str {
+		if l := utf8.RuneLen(s); l > 1 {
+			length += 2
+		} else {
+			length++
+		}
+	}
+	return length
 }
