@@ -6,8 +6,8 @@ import (
 	"unicode/utf8"
 )
 
-func Render(columns []string, values [][]string) {
-	goban := newGoban(columns, values)
+func Render(columns []string, rows [][]string) {
+	goban := newGoban(columns, rows)
 	goban.render()
 }
 
